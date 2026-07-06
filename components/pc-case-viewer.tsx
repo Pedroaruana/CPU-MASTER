@@ -40,8 +40,8 @@ export default function PcCaseViewer() {
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
           />
-          <pointLight position={[-3, 1, -2]} intensity={8} color="#a855f7" />
-          <pointLight position={[3, 1, 2]} intensity={8} color="#ec4899" />
+          <pointLight position={[-3, 1, -2]} intensity={10} color="#a855f7" />
+          <pointLight position={[3, 1, 2]} intensity={10} color="#ec4899" />
 
           <Suspense fallback={<Loader />}>
             <Bounds fit clip observe margin={1.2}>
