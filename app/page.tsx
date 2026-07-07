@@ -1,4 +1,5 @@
 import PcCaseViewer from "@/components/pc-case-viewer";
+import BuildSelector from "@/components/build-selector";
 
 export default function Home() {
   return (
@@ -14,6 +15,10 @@ export default function Home() {
 
       <div className="w-full max-w-4xl">
         <PcCaseViewer />
+      </div>
+
+      <div className="mt-10">
+        <BuildSelector />
       </div>
     </div>
   );
