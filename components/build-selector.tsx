@@ -2,32 +2,48 @@
 
 import { useMemo, useState } from "react";
 import { checkCompatibility } from "@/lib/compatibility";
-import { gpus, motherboards, rams, ssds } from "@/lib/parts";
+import { coolers, cpus, gpus, motherboards, rams, ssds } from "@/lib/parts";
 
 export default function BuildSelector() {
   const [motherboardId, setMotherboardId] = useState("");
+  const [cpuId, setCpuId] = useState("");
+  const [coolerId, setCoolerId] = useState("");
   const [gpuId, setGpuId] = useState("");
   const [ramId, setRamId] = useState("");
   const [ssdId, setSsdId] = useState("");
 
   const motherboard = motherboards.find((m) => m.id === motherboardId) ?? null;
+  const cpu = cpus.find((c) => c.id === cpuId) ?? null;
+  const cooler = coolers.find((c) => c.id === coolerId) ?? null;
   const gpu = gpus.find((g) => g.id === gpuId) ?? null;
   const ram = rams.find((r) => r.id === ramId) ?? null;
   const ssd = ssds.find((s) => s.id === ssdId) ?? null;
 
   const checks = useMemo(
-    () => checkCompatibility(motherboard, gpu, ram, ssd),
-    [motherboard, gpu, ram, ssd]
+    () => checkCompatibility(motherboard, cpu, cooler, gpu, ram, ssd),
+    [motherboard, cpu, cooler, gpu, ram, ssd]
   );
 
   return (
     <div className="w-full max-w-4xl">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Select
           label="Placa-mãe"
           value={motherboardId}
           onChange={setMotherboardId}
           options={motherboards.map((m) => ({ value: m.id, label: m.name }))}
+        />
+        <Select
+          label="Processador"
+          value={cpuId}
+          onChange={setCpuId}
+          options={cpus.map((c) => ({ value: c.id, label: c.name }))}
+        />
+        <Select
+          label="Cooler"
+          value={coolerId}
+          onChange={setCoolerId}
+          options={coolers.map((c) => ({ value: c.id, label: c.name }))}
         />
         <Select
           label="Placa de vídeo"
