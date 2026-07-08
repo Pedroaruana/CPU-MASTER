@@ -1,4 +1,13 @@
-import { CASE_MAX_GPU_LENGTH_MM, Gpu, Motherboard, Ram, Ssd } from "./parts";
+import {
+  CASE_MAX_GPU_LENGTH_MM,
+  CASE_MAX_RADIATOR_MM,
+  Cooler,
+  Cpu,
+  Gpu,
+  Motherboard,
+  Ram,
+  Ssd,
+} from "./parts";
 
 export type CompatibilityCheck = {
   label: string;
@@ -8,11 +17,46 @@ export type CompatibilityCheck = {
 
 export function checkCompatibility(
   motherboard: Motherboard | null,
+  cpu: Cpu | null,
+  cooler: Cooler | null,
   gpu: Gpu | null,
   ram: Ram | null,
   ssd: Ssd | null
 ): CompatibilityCheck[] {
   const checks: CompatibilityCheck[] = [];
+
+  if (motherboard && cpu) {
+    const ok = motherboard.socket === cpu.socket;
+    checks.push({
+      label: "Processador x Placa-mãe",
+      ok,
+      reason: ok
+        ? `${cpu.name} usa soquete ${cpu.socket}, compatível com a ${motherboard.name}`
+        : `${cpu.name} usa soquete ${cpu.socket}, mas a ${motherboard.name} é soquete ${motherboard.socket}`,
+    });
+  }
+
+  if (cpu && cooler) {
+    const ok = cooler.sockets.includes(cpu.socket);
+    checks.push({
+      label: "Cooler x Processador",
+      ok,
+      reason: ok
+        ? `${cooler.name} suporta o soquete ${cpu.socket}`
+        : `${cooler.name} não tem suporte para o soquete ${cpu.socket} do ${cpu.name}`,
+    });
+  }
+
+  if (cooler && cooler.type === "AIO" && cooler.radiatorMm) {
+    const ok = cooler.radiatorMm <= CASE_MAX_RADIATOR_MM;
+    checks.push({
+      label: "Cooler x Gabinete",
+      ok,
+      reason: ok
+        ? `Radiador de ${cooler.radiatorMm}mm cabe no gabinete (máx. ${CASE_MAX_RADIATOR_MM}mm)`
+        : `Radiador de ${cooler.radiatorMm}mm não cabe no gabinete (máx. ${CASE_MAX_RADIATOR_MM}mm)`,
+    });
+  }
 
   if (motherboard && ram) {
     const ok = motherboard.ramType === ram.type;
