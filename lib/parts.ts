@@ -35,6 +35,23 @@ export type Ssd = {
   capacityGb: number;
 };
 
+export type Cpu = {
+  id: string;
+  brand: Brand;
+  name: string;
+  socket: string;
+};
+
+export type CoolerType = "Air" | "AIO";
+
+export type Cooler = {
+  id: string;
+  name: string;
+  type: CoolerType;
+  sockets: string[];
+  radiatorMm?: number;
+};
+
 export const motherboards: Motherboard[] = [
   { id: "asus-b550f", brand: "amd", name: "ASUS ROG Strix B550-F", socket: "AM4", ramType: "DDR4", formFactor: "ATX", m2Slots: 2 },
   { id: "msi-b550m", brand: "amd", name: "MSI B550M Pro-VDH", socket: "AM4", ramType: "DDR4", formFactor: "mATX", m2Slots: 1 },
@@ -68,4 +85,23 @@ export const ssds: Ssd[] = [
   { id: "crucial-mx500", name: "Crucial MX500", interface: "SATA", capacityGb: 500 },
 ];
 
+export const cpus: Cpu[] = [
+  { id: "ryzen-5-5600", brand: "amd", name: "AMD Ryzen 5 5600", socket: "AM4" },
+  { id: "ryzen-7-5800x3d", brand: "amd", name: "AMD Ryzen 7 5800X3D", socket: "AM4" },
+  { id: "ryzen-7-7800x3d", brand: "amd", name: "AMD Ryzen 7 7800X3D", socket: "AM5" },
+  { id: "ryzen-9-7950x", brand: "amd", name: "AMD Ryzen 9 7950X", socket: "AM5" },
+  { id: "core-i5-12400", brand: "intel", name: "Intel Core i5-12400", socket: "LGA1700" },
+  { id: "core-i7-13700k", brand: "intel", name: "Intel Core i7-13700K", socket: "LGA1700" },
+  { id: "core-i9-13900k", brand: "intel", name: "Intel Core i9-13900K", socket: "LGA1700" },
+];
+
+export const coolers: Cooler[] = [
+  { id: "cooler-master-hyper-212", name: "Cooler Master Hyper 212", type: "Air", sockets: ["AM4", "AM5", "LGA1700"] },
+  { id: "deepcool-ak400", name: "DeepCool AK400", type: "Air", sockets: ["AM4", "AM5", "LGA1700"] },
+  { id: "corsair-h100i", name: "Corsair iCUE H100i", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 240 },
+  { id: "nzxt-kraken-280", name: "NZXT Kraken 280", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 280 },
+  { id: "deepcool-castle-360", name: "DeepCool Castle 360", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 360 },
+];
+
 export const CASE_MAX_GPU_LENGTH_MM = 330;
+export const CASE_MAX_RADIATOR_MM = 280;
