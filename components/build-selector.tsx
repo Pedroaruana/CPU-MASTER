@@ -66,20 +66,22 @@ export default function BuildSelector() {
       </div>
 
       {checks.length > 0 && (
-        <div className="mt-6 space-y-2">
+        <div className="mt-8 space-y-px border border-black/10">
           {checks.map((check) => (
             <div
               key={check.label}
-              className={`flex items-start gap-3 rounded-lg border px-4 py-3 text-sm ${
-                check.ok
-                  ? "border-green-900 bg-green-950/40 text-green-300"
-                  : "border-red-900 bg-red-950/40 text-red-300"
-              }`}
+              className="flex items-start gap-4 border-b border-black/10 bg-white px-5 py-4 text-sm last:border-b-0"
             >
-              <span>{check.ok ? "✅" : "❌"}</span>
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-xs font-bold text-black">
+                {check.ok ? "✓" : "✕"}
+              </span>
               <div>
-                <p className="font-medium">{check.label}</p>
-                <p className="text-xs opacity-80">{check.reason}</p>
+                <p className="font-medium tracking-tight text-black">
+                  {check.label}
+                </p>
+                <p className="mt-0.5 text-xs text-neutral-500">
+                  {check.reason}
+                </p>
               </div>
             </div>
           ))}
@@ -101,12 +103,12 @@ function Select({
   options: { value: string; label: string }[];
 }) {
   return (
-    <label className="flex flex-col gap-1.5 text-sm text-zinc-400">
+    <label className="flex flex-col gap-2 text-xs uppercase tracking-widest text-neutral-500">
       {label}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-white outline-none focus:border-zinc-400"
+        className="border border-black/20 bg-white px-3 py-2.5 text-sm normal-case tracking-normal text-black outline-none transition-colors focus:border-black"
       >
         <option value="">Selecione</option>
         {options.map((opt) => (
