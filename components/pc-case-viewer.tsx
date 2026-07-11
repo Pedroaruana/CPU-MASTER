@@ -6,6 +6,8 @@ import { Bounds, Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
+export type GpuBrand = "none" | "nvidia" | "amd";
+
 function GamingPcModel() {
   const { scene } = useGLTF("/models/gaming-pc.glb");
   const ref = useRef<THREE.Group>(null);
@@ -22,11 +24,33 @@ function GamingPcModel() {
   return <primitive ref={ref} object={scene} />;
 }
 
+function GenericGpu({ brand }: { brand: "nvidia" | "amd" }) {
+  const accent = brand === "nvidia" ? "#22c55e" : "#ef4444";
+
+  return (
+    <group position={[8.5, -0.85, 0.3]}>
+      <mesh castShadow receiveShadow>
+        <boxGeometry args={[2.1, 0.45, 0.75]} />
+        <meshStandardMaterial color="#111114" roughness={0.35} metalness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.24, 0.39]}>
+        <boxGeometry args={[2.1, 0.05, 0.03]} />
+        <meshStandardMaterial
+          color={accent}
+          emissive={accent}
+          emissiveIntensity={2.5}
+          toneMapped={false}
+        />
+      </mesh>
+    </group>
+  );
+}
+
 function Loader() {
   return null;
 }
 
-export default function PcCaseViewer() {
+export default function PcCaseViewer({ gpuBrand }: { gpuBrand: GpuBrand }) {
   return (
     <div className="w-full">
       <div className="h-[70vh] max-h-[640px] min-h-[420px] w-full bg-gradient-to-b from-zinc-900 to-black">
@@ -46,6 +70,7 @@ export default function PcCaseViewer() {
           <Suspense fallback={<Loader />}>
             <Bounds fit clip observe margin={1.2}>
               <GamingPcModel />
+              {gpuBrand !== "none" && <GenericGpu brand={gpuBrand} />}
             </Bounds>
             <Environment preset="city" />
           </Suspense>

@@ -1,10 +1,15 @@
-import PcCaseViewer from "@/components/pc-case-viewer";
+"use client";
+
+import { useState } from "react";
+import PcCaseViewer, { GpuBrand } from "@/components/pc-case-viewer";
 import BuildSelector from "@/components/build-selector";
 import Logo from "@/components/logo";
 import SiteFooter from "@/components/site-footer";
 import CornerFrame from "@/components/corner-frame";
 
 export default function Home() {
+  const [gpuBrand, setGpuBrand] = useState<GpuBrand>("none");
+
   return (
     <div className="flex h-screen flex-col bg-white">
       <header className="flex shrink-0 items-center justify-between px-8 py-6">
@@ -26,7 +31,7 @@ export default function Home() {
 
           <div className="relative w-full max-w-2xl border border-black/10 p-2">
             <CornerFrame />
-            <PcCaseViewer />
+            <PcCaseViewer gpuBrand={gpuBrand} />
           </div>
         </main>
 
@@ -34,7 +39,7 @@ export default function Home() {
           <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-400">
             Monte seu PC
           </p>
-          <BuildSelector />
+          <BuildSelector onGpuBrandChange={setGpuBrand} />
         </aside>
       </div>
 

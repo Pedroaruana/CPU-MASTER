@@ -3,8 +3,13 @@
 import { useMemo, useState } from "react";
 import { checkCompatibility } from "@/lib/compatibility";
 import { coolers, cpus, gpus, motherboards, rams, ssds } from "@/lib/parts";
+import type { GpuBrand } from "@/components/pc-case-viewer";
 
-export default function BuildSelector() {
+type Props = {
+  onGpuBrandChange: (brand: GpuBrand) => void;
+};
+
+export default function BuildSelector({ onGpuBrandChange }: Props) {
   const [motherboardId, setMotherboardId] = useState("");
   const [cpuId, setCpuId] = useState("");
   const [coolerId, setCoolerId] = useState("");
@@ -23,6 +28,12 @@ export default function BuildSelector() {
     () => checkCompatibility(motherboard, cpu, cooler, gpu, ram, ssd),
     [motherboard, cpu, cooler, gpu, ram, ssd]
   );
+
+  function handleGpuChange(id: string) {
+    setGpuId(id);
+    const selected = gpus.find((g) => g.id === id);
+    onGpuBrandChange(selected ? (selected.brand as GpuBrand) : "none");
+  }
 
   return (
     <div className="w-full max-w-4xl">
@@ -48,7 +59,7 @@ export default function BuildSelector() {
         <Select
           label="Placa de vídeo"
           value={gpuId}
-          onChange={setGpuId}
+          onChange={handleGpuChange}
           options={gpus.map((g) => ({ value: g.id, label: g.name }))}
         />
         <Select
