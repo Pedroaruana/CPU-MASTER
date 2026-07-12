@@ -1,15 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { checkCompatibility } from "@/lib/compatibility";
 import { coolers, cpus, gpus, motherboards, rams, ssds } from "@/lib/parts";
 import type { GpuBrand } from "@/components/pc-case-viewer";
 
 type Props = {
   onGpuBrandChange: (brand: GpuBrand) => void;
+  onRamSelectedChange: (selected: boolean) => void;
 };
 
-export default function BuildSelector({ onGpuBrandChange }: Props) {
+export default function BuildSelector({
+  onGpuBrandChange,
+  onRamSelectedChange,
+}: Props) {
   const [motherboardId, setMotherboardId] = useState("");
   const [cpuId, setCpuId] = useState("");
   const [coolerId, setCoolerId] = useState("");
@@ -28,6 +32,11 @@ export default function BuildSelector({ onGpuBrandChange }: Props) {
     () => checkCompatibility(motherboard, cpu, cooler, gpu, ram, ssd),
     [motherboard, cpu, cooler, gpu, ram, ssd]
   );
+
+  useEffect(() => {
+    onRamSelectedChange(Boolean(ram));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ram]);
 
   function handleGpuChange(id: string) {
     setGpuId(id);

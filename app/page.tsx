@@ -9,6 +9,7 @@ import CornerFrame from "@/components/corner-frame";
 
 export default function Home() {
   const [gpuBrand, setGpuBrand] = useState<GpuBrand>("none");
+  const [ramSelected, setRamSelected] = useState(false);
 
   return (
     <div className="flex h-screen flex-col bg-white">
@@ -31,7 +32,7 @@ export default function Home() {
 
           <div className="relative w-full max-w-2xl border border-black/10 p-2">
             <CornerFrame />
-            <PcCaseViewer gpuBrand={gpuBrand} />
+            <PcCaseViewer gpuBrand={gpuBrand} ramSelected={ramSelected} />
           </div>
         </main>
 
@@ -39,7 +40,10 @@ export default function Home() {
           <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-400">
             Monte seu PC
           </p>
-          <BuildSelector onGpuBrandChange={setGpuBrand} />
+          <BuildSelector
+            onGpuBrandChange={setGpuBrand}
+            onRamSelectedChange={setRamSelected}
+          />
         </aside>
       </div>
 

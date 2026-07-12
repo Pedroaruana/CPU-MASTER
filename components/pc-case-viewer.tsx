@@ -46,11 +46,43 @@ function GenericGpu({ brand }: { brand: "nvidia" | "amd" }) {
   );
 }
 
+function GenericRam() {
+  const sticks = [-0.14, 0.14];
+
+  return (
+    <group position={[8.85, 0.45, 0.15]}>
+      {sticks.map((offset) => (
+        <group key={offset} position={[offset, 0, 0]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[0.1, 1.0, 0.55]} />
+            <meshStandardMaterial color="#1c1c1f" roughness={0.4} metalness={0.6} />
+          </mesh>
+          <mesh position={[0, 0.51, 0]}>
+            <boxGeometry args={[0.11, 0.03, 0.55]} />
+            <meshStandardMaterial
+              color="#38bdf8"
+              emissive="#38bdf8"
+              emissiveIntensity={2.2}
+              toneMapped={false}
+            />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
+
 function Loader() {
   return null;
 }
 
-export default function PcCaseViewer({ gpuBrand }: { gpuBrand: GpuBrand }) {
+export default function PcCaseViewer({
+  gpuBrand,
+  ramSelected,
+}: {
+  gpuBrand: GpuBrand;
+  ramSelected: boolean;
+}) {
   return (
     <div className="w-full">
       <div className="h-[70vh] max-h-[640px] min-h-[420px] w-full bg-gradient-to-b from-zinc-900 to-black">
@@ -71,6 +103,7 @@ export default function PcCaseViewer({ gpuBrand }: { gpuBrand: GpuBrand }) {
             <Bounds fit clip observe margin={1.2}>
               <GamingPcModel />
               {gpuBrand !== "none" && <GenericGpu brand={gpuBrand} />}
+              {ramSelected && <GenericRam />}
             </Bounds>
             <Environment preset="city" />
           </Suspense>
