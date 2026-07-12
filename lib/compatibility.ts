@@ -5,6 +5,7 @@ import {
   Cpu,
   Gpu,
   Motherboard,
+  Psu,
   Ram,
   Ssd,
 } from "./parts";
@@ -21,7 +22,8 @@ export function checkCompatibility(
   cooler: Cooler | null,
   gpu: Gpu | null,
   ram: Ram | null,
-  ssd: Ssd | null
+  ssd: Ssd | null,
+  psu: Psu | null
 ): CompatibilityCheck[] {
   const checks: CompatibilityCheck[] = [];
 
@@ -91,5 +93,43 @@ export function checkCompatibility(
     });
   }
 
+  if (gpu && psu) {
+    const ok = psu.wattage >= gpu.recommendedPsuW;
+    checks.push({
+      label: "Fonte x Placa de vídeo",
+      ok,
+      reason: ok
+        ? `${psu.name} (${psu.wattage}W) atende os ${gpu.recommendedPsuW}W recomendados para a ${gpu.name}`
+        : `${psu.name} (${psu.wattage}W) é insuficiente para a ${gpu.name} (recomendado: ${gpu.recommendedPsuW}W)`,
+    });
+  }
+
   return checks;
+}
+
+export type BottleneckWarning = {
+  message: string;
+};
+
+export function checkBottleneck(
+  cpu: Cpu | null,
+  gpu: Gpu | null
+): BottleneckWarning | null {
+  if (!cpu || !gpu) return null;
+
+  const diff = gpu.tier - cpu.tier;
+
+  if (diff >= 4) {
+    return {
+      message: `${cpu.name} pode segurar o desempenho da ${gpu.name} (gargalo de processador). Considere um processador mais forte para aproveitar toda a GPU.`,
+    };
+  }
+
+  if (diff <= -5) {
+    return {
+      message: `${gpu.name} está bem abaixo do nível da ${cpu.name}. Uma GPU mais forte aproveitaria melhor esse processador.`,
+    };
+  }
+
+  return null;
 }
