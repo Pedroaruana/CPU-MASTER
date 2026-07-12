@@ -8,11 +8,13 @@ import type { GpuBrand } from "@/components/pc-case-viewer";
 type Props = {
   onGpuBrandChange: (brand: GpuBrand) => void;
   onRamSelectedChange: (selected: boolean) => void;
+  onSsdSelectedChange: (selected: boolean) => void;
 };
 
 export default function BuildSelector({
   onGpuBrandChange,
   onRamSelectedChange,
+  onSsdSelectedChange,
 }: Props) {
   const [motherboardId, setMotherboardId] = useState("");
   const [cpuId, setCpuId] = useState("");
@@ -37,6 +39,11 @@ export default function BuildSelector({
     onRamSelectedChange(Boolean(ram));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ram]);
+
+  useEffect(() => {
+    onSsdSelectedChange(Boolean(ssd));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ssd]);
 
   function handleGpuChange(id: string) {
     setGpuId(id);

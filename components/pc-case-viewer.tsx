@@ -72,6 +72,26 @@ function GenericRam() {
   );
 }
 
+function GenericSsd() {
+  return (
+    <group position={[8.15, -0.2, 0.32]}>
+      <mesh castShadow receiveShadow>
+        <boxGeometry args={[0.55, 0.06, 0.22]} />
+        <meshStandardMaterial color="#1c1c1f" roughness={0.3} metalness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.035, 0]}>
+        <boxGeometry args={[0.5, 0.01, 0.18]} />
+        <meshStandardMaterial
+          color="#ffffff"
+          emissive="#ffffff"
+          emissiveIntensity={2}
+          toneMapped={false}
+        />
+      </mesh>
+    </group>
+  );
+}
+
 function Loader() {
   return null;
 }
@@ -79,9 +99,11 @@ function Loader() {
 export default function PcCaseViewer({
   gpuBrand,
   ramSelected,
+  ssdSelected,
 }: {
   gpuBrand: GpuBrand;
   ramSelected: boolean;
+  ssdSelected: boolean;
 }) {
   return (
     <div className="w-full">
@@ -104,6 +126,7 @@ export default function PcCaseViewer({
               <GamingPcModel />
               {gpuBrand !== "none" && <GenericGpu brand={gpuBrand} />}
               {ramSelected && <GenericRam />}
+              {ssdSelected && <GenericSsd />}
             </Bounds>
             <Environment preset="city" />
           </Suspense>
