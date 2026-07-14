@@ -90,13 +90,35 @@ export const motherboards: Motherboard[] = [
 ];
 
 export const gpus: Gpu[] = [
+  { id: "rtx-3060", brand: "nvidia", name: "Nvidia RTX 3060", lengthMm: 242, recommendedPsuW: 550, priceBRL: 1699, tier: 4 },
+  { id: "rtx-3060ti", brand: "nvidia", name: "Nvidia RTX 3060 Ti", lengthMm: 242, recommendedPsuW: 600, priceBRL: 1999, tier: 5 },
+  { id: "rtx-3070", brand: "nvidia", name: "Nvidia RTX 3070", lengthMm: 242, recommendedPsuW: 650, priceBRL: 2399, tier: 6 },
+  { id: "rtx-3080", brand: "nvidia", name: "Nvidia RTX 3080", lengthMm: 285, recommendedPsuW: 750, priceBRL: 3299, tier: 7 },
   { id: "rtx-4060", brand: "nvidia", name: "Nvidia RTX 4060", lengthMm: 245, recommendedPsuW: 550, priceBRL: 2199, tier: 4 },
+  { id: "rtx-4060ti", brand: "nvidia", name: "Nvidia RTX 4060 Ti", lengthMm: 250, recommendedPsuW: 550, priceBRL: 2599, tier: 5 },
   { id: "rtx-4070", brand: "nvidia", name: "Nvidia RTX 4070", lengthMm: 285, recommendedPsuW: 650, priceBRL: 3599, tier: 6 },
+  { id: "rtx-4070super", brand: "nvidia", name: "Nvidia RTX 4070 Super", lengthMm: 285, recommendedPsuW: 650, priceBRL: 3999, tier: 7 },
+  { id: "rtx-4070ti", brand: "nvidia", name: "Nvidia RTX 4070 Ti", lengthMm: 300, recommendedPsuW: 700, priceBRL: 4599, tier: 7 },
+  { id: "rtx-4070tisuper", brand: "nvidia", name: "Nvidia RTX 4070 Ti Super", lengthMm: 305, recommendedPsuW: 700, priceBRL: 4999, tier: 8 },
   { id: "rtx-4080", brand: "nvidia", name: "Nvidia RTX 4080", lengthMm: 310, recommendedPsuW: 750, priceBRL: 5999, tier: 8 },
+  { id: "rtx-4080super", brand: "nvidia", name: "Nvidia RTX 4080 Super", lengthMm: 310, recommendedPsuW: 750, priceBRL: 6499, tier: 9 },
   { id: "rtx-4090", brand: "nvidia", name: "Nvidia RTX 4090", lengthMm: 336, recommendedPsuW: 850, priceBRL: 9999, tier: 10 },
+  { id: "rtx-5070", brand: "nvidia", name: "Nvidia RTX 5070", lengthMm: 280, recommendedPsuW: 650, priceBRL: 4499, tier: 7 },
+  { id: "rtx-5080", brand: "nvidia", name: "Nvidia RTX 5080", lengthMm: 310, recommendedPsuW: 750, priceBRL: 7499, tier: 9 },
+  { id: "rtx-5090", brand: "nvidia", name: "Nvidia RTX 5090", lengthMm: 340, recommendedPsuW: 1000, priceBRL: 13999, tier: 10 },
+  { id: "rx-6600", brand: "amd", name: "AMD RX 6600", lengthMm: 220, recommendedPsuW: 500, priceBRL: 1299, tier: 3 },
+  { id: "rx-6650xt", brand: "amd", name: "AMD RX 6650 XT", lengthMm: 240, recommendedPsuW: 550, priceBRL: 1499, tier: 4 },
+  { id: "rx-6700xt", brand: "amd", name: "AMD RX 6700 XT", lengthMm: 267, recommendedPsuW: 650, priceBRL: 1899, tier: 5 },
+  { id: "rx-6750xt", brand: "amd", name: "AMD RX 6750 XT", lengthMm: 267, recommendedPsuW: 650, priceBRL: 1999, tier: 6 },
+  { id: "rx-6800", brand: "amd", name: "AMD RX 6800", lengthMm: 267, recommendedPsuW: 700, priceBRL: 2599, tier: 7 },
+  { id: "rx-6800xt", brand: "amd", name: "AMD RX 6800 XT", lengthMm: 267, recommendedPsuW: 750, priceBRL: 2999, tier: 8 },
+  { id: "rx-6900xt", brand: "amd", name: "AMD RX 6900 XT", lengthMm: 267, recommendedPsuW: 800, priceBRL: 3499, tier: 8 },
   { id: "rx-7600", brand: "amd", name: "AMD RX 7600", lengthMm: 240, recommendedPsuW: 550, priceBRL: 1799, tier: 4 },
+  { id: "rx-7700xt", brand: "amd", name: "AMD RX 7700 XT", lengthMm: 267, recommendedPsuW: 700, priceBRL: 2799, tier: 6 },
   { id: "rx-7800xt", brand: "amd", name: "AMD RX 7800 XT", lengthMm: 300, recommendedPsuW: 700, priceBRL: 3299, tier: 7 },
   { id: "rx-7900xtx", brand: "amd", name: "AMD RX 7900 XTX", lengthMm: 330, recommendedPsuW: 850, priceBRL: 5499, tier: 9 },
+  { id: "rx-9070", brand: "amd", name: "AMD RX 9070", lengthMm: 290, recommendedPsuW: 700, priceBRL: 4299, tier: 7 },
+  { id: "rx-9070xt", brand: "amd", name: "AMD RX 9070 XT", lengthMm: 305, recommendedPsuW: 750, priceBRL: 4999, tier: 8 },
 ];
 
 export const rams: Ram[] = [
