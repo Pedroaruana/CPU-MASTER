@@ -129,10 +129,23 @@ export const rams: Ram[] = [
 ];
 
 export const ssds: Ssd[] = [
-  { id: "samsung-980pro", name: "Samsung 980 Pro", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 549 },
-  { id: "wd-sn850x", name: "WD Black SN850X", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 599 },
-  { id: "kingston-a400", name: "Kingston A400", interface: "SATA", capacityGb: 480, priceBRL: 179 },
-  { id: "crucial-mx500", name: "Crucial MX500", interface: "SATA", capacityGb: 500, priceBRL: 219 },
+  { id: "samsung-970evoplus", name: "Samsung 970 EVO Plus (NVMe Gen3) 500GB", interface: "NVMe M.2", capacityGb: 500, priceBRL: 329 },
+  { id: "samsung-980pro", name: "Samsung 980 Pro (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 549 },
+  { id: "samsung-990pro", name: "Samsung 990 Pro (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 649 },
+  { id: "samsung-990pro-2tb", name: "Samsung 990 Pro (NVMe Gen4) 2TB", interface: "NVMe M.2", capacityGb: 2000, priceBRL: 1199 },
+  { id: "wd-sn770", name: "WD Black SN770 (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 449 },
+  { id: "wd-sn850x", name: "WD Black SN850X (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 599 },
+  { id: "seagate-firecuda-530", name: "Seagate FireCuda 530 (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 599 },
+  { id: "kingston-nv2", name: "Kingston NV2 (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 399 },
+  { id: "kingston-kc3000", name: "Kingston KC3000 (NVMe Gen4) 2TB", interface: "NVMe M.2", capacityGb: 2000, priceBRL: 1099 },
+  { id: "xpg-gammix-s70", name: "ADATA XPG Gammix S70 Blade (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 579 },
+  { id: "corsair-mp600pro", name: "Corsair MP600 Pro (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 629 },
+  { id: "teamgroup-mp44", name: "TeamGroup MP44 (NVMe Gen4) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 479 },
+  { id: "crucial-t700", name: "Crucial T700 (NVMe Gen5) 1TB", interface: "NVMe M.2", capacityGb: 1000, priceBRL: 899 },
+  { id: "kingston-a400", name: "Kingston A400 480GB", interface: "SATA", capacityGb: 480, priceBRL: 179 },
+  { id: "crucial-mx500", name: "Crucial MX500 500GB", interface: "SATA", capacityGb: 500, priceBRL: 219 },
+  { id: "samsung-870evo", name: "Samsung 870 EVO 1TB", interface: "SATA", capacityGb: 1000, priceBRL: 399 },
+  { id: "seagate-barracuda", name: "Seagate Barracuda 1TB", interface: "SATA", capacityGb: 1000, priceBRL: 329 },
 ];
 
 export const cpus: Cpu[] = [
