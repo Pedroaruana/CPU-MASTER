@@ -68,12 +68,25 @@ export type Psu = {
 };
 
 export const motherboards: Motherboard[] = [
+  { id: "asrock-b450m", brand: "amd", name: "ASRock B450M Pro4", socket: "AM4", ramType: "DDR4", formFactor: "mATX", m2Slots: 1, priceBRL: 549 },
   { id: "asus-b550f", brand: "amd", name: "ASUS ROG Strix B550-F", socket: "AM4", ramType: "DDR4", formFactor: "ATX", m2Slots: 2, priceBRL: 1199 },
   { id: "msi-b550m", brand: "amd", name: "MSI B550M Pro-VDH", socket: "AM4", ramType: "DDR4", formFactor: "mATX", m2Slots: 1, priceBRL: 649 },
+  { id: "gigabyte-b550-aorus", brand: "amd", name: "Gigabyte B550 Aorus Elite", socket: "AM4", ramType: "DDR4", formFactor: "ATX", m2Slots: 2, priceBRL: 899 },
+  { id: "asrock-x570", brand: "amd", name: "ASRock X570 Phantom Gaming 4", socket: "AM4", ramType: "DDR4", formFactor: "ATX", m2Slots: 2, priceBRL: 1299 },
+  { id: "asrock-b650m", brand: "amd", name: "ASRock B650M Pro RS", socket: "AM5", ramType: "DDR5", formFactor: "mATX", m2Slots: 2, priceBRL: 999 },
+  { id: "asus-tuf-b650", brand: "amd", name: "ASUS TUF Gaming B650-Plus", socket: "AM5", ramType: "DDR5", formFactor: "ATX", m2Slots: 2, priceBRL: 1399 },
   { id: "msi-b650-tomahawk", brand: "amd", name: "MSI B650 Tomahawk", socket: "AM5", ramType: "DDR5", formFactor: "ATX", m2Slots: 2, priceBRL: 1799 },
   { id: "gigabyte-x670", brand: "amd", name: "Gigabyte X670 Aorus Elite", socket: "AM5", ramType: "DDR5", formFactor: "ATX", m2Slots: 3, priceBRL: 2199 },
+  { id: "msi-x670e-carbon", brand: "amd", name: "MSI X670E Carbon WiFi", socket: "AM5", ramType: "DDR5", formFactor: "ATX", m2Slots: 4, priceBRL: 2999 },
+  { id: "asus-rog-x870", brand: "amd", name: "ASUS ROG Strix X870-A", socket: "AM5", ramType: "DDR5", formFactor: "ATX", m2Slots: 4, priceBRL: 2699 },
+  { id: "asrock-h610m", brand: "intel", name: "ASRock H610M-HVS", socket: "LGA1700", ramType: "DDR4", formFactor: "mATX", m2Slots: 1, priceBRL: 549 },
   { id: "gigabyte-b660", brand: "intel", name: "Gigabyte B660 Aorus Elite", socket: "LGA1700", ramType: "DDR4", formFactor: "ATX", m2Slots: 2, priceBRL: 999 },
+  { id: "msi-b760m", brand: "intel", name: "MSI PRO B760M-A", socket: "LGA1700", ramType: "DDR5", formFactor: "mATX", m2Slots: 2, priceBRL: 899 },
+  { id: "gigabyte-z690", brand: "intel", name: "Gigabyte Z690 Aorus Elite", socket: "LGA1700", ramType: "DDR5", formFactor: "ATX", m2Slots: 3, priceBRL: 1599 },
   { id: "asus-z790", brand: "intel", name: "ASUS Prime Z790-P", socket: "LGA1700", ramType: "DDR5", formFactor: "ATX", m2Slots: 3, priceBRL: 1899 },
+  { id: "asus-tuf-z790", brand: "intel", name: "ASUS TUF Gaming Z790-Plus", socket: "LGA1700", ramType: "DDR5", formFactor: "ATX", m2Slots: 4, priceBRL: 1799 },
+  { id: "msi-b860p", brand: "intel", name: "MSI PRO B860-P", socket: "LGA1851", ramType: "DDR5", formFactor: "ATX", m2Slots: 3, priceBRL: 1199 },
+  { id: "asus-rog-z890", brand: "intel", name: "ASUS ROG Strix Z890-E", socket: "LGA1851", ramType: "DDR5", formFactor: "ATX", m2Slots: 4, priceBRL: 2899 },
 ];
 
 export const gpus: Gpu[] = [
@@ -101,21 +114,36 @@ export const ssds: Ssd[] = [
 ];
 
 export const cpus: Cpu[] = [
+  { id: "ryzen-3-4100", brand: "amd", name: "AMD Ryzen 3 4100", socket: "AM4", priceBRL: 499, tier: 3 },
+  { id: "ryzen-5-5500", brand: "amd", name: "AMD Ryzen 5 5500", socket: "AM4", priceBRL: 649, tier: 4 },
   { id: "ryzen-5-5600", brand: "amd", name: "AMD Ryzen 5 5600", socket: "AM4", priceBRL: 799, tier: 5 },
+  { id: "ryzen-7-5700x", brand: "amd", name: "AMD Ryzen 7 5700X", socket: "AM4", priceBRL: 1199, tier: 6 },
   { id: "ryzen-7-5800x3d", brand: "amd", name: "AMD Ryzen 7 5800X3D", socket: "AM4", priceBRL: 1699, tier: 7 },
+  { id: "ryzen-5-7600", brand: "amd", name: "AMD Ryzen 5 7600", socket: "AM5", priceBRL: 1099, tier: 6 },
+  { id: "ryzen-7-7700x", brand: "amd", name: "AMD Ryzen 7 7700X", socket: "AM5", priceBRL: 1899, tier: 8 },
   { id: "ryzen-7-7800x3d", brand: "amd", name: "AMD Ryzen 7 7800X3D", socket: "AM5", priceBRL: 2399, tier: 9 },
+  { id: "ryzen-9-7900x", brand: "amd", name: "AMD Ryzen 9 7900X", socket: "AM5", priceBRL: 2799, tier: 9 },
   { id: "ryzen-9-7950x", brand: "amd", name: "AMD Ryzen 9 7950X", socket: "AM5", priceBRL: 3299, tier: 9 },
+  { id: "ryzen-9-9950x", brand: "amd", name: "AMD Ryzen 9 9950X", socket: "AM5", priceBRL: 4299, tier: 10 },
+  { id: "core-i3-12100f", brand: "intel", name: "Intel Core i3-12100F", socket: "LGA1700", priceBRL: 599, tier: 3 },
   { id: "core-i5-12400", brand: "intel", name: "Intel Core i5-12400", socket: "LGA1700", priceBRL: 899, tier: 5 },
+  { id: "core-i5-13400f", brand: "intel", name: "Intel Core i5-13400F", socket: "LGA1700", priceBRL: 1099, tier: 6 },
+  { id: "core-i5-14600k", brand: "intel", name: "Intel Core i5-14600K", socket: "LGA1700", priceBRL: 1799, tier: 7 },
+  { id: "core-i7-12700k", brand: "intel", name: "Intel Core i7-12700K", socket: "LGA1700", priceBRL: 1999, tier: 8 },
   { id: "core-i7-13700k", brand: "intel", name: "Intel Core i7-13700K", socket: "LGA1700", priceBRL: 2299, tier: 8 },
   { id: "core-i9-13900k", brand: "intel", name: "Intel Core i9-13900K", socket: "LGA1700", priceBRL: 3599, tier: 10 },
+  { id: "core-i9-14900k", brand: "intel", name: "Intel Core i9-14900K", socket: "LGA1700", priceBRL: 3999, tier: 10 },
+  { id: "core-ultra5-245k", brand: "intel", name: "Intel Core Ultra 5 245K", socket: "LGA1851", priceBRL: 1899, tier: 7 },
+  { id: "core-ultra7-265k", brand: "intel", name: "Intel Core Ultra 7 265K", socket: "LGA1851", priceBRL: 2599, tier: 8 },
+  { id: "core-ultra9-285k", brand: "intel", name: "Intel Core Ultra 9 285K", socket: "LGA1851", priceBRL: 3799, tier: 10 },
 ];
 
 export const coolers: Cooler[] = [
-  { id: "cooler-master-hyper-212", name: "Cooler Master Hyper 212", type: "Air", sockets: ["AM4", "AM5", "LGA1700"], priceBRL: 199 },
-  { id: "deepcool-ak400", name: "DeepCool AK400", type: "Air", sockets: ["AM4", "AM5", "LGA1700"], priceBRL: 249 },
-  { id: "corsair-h100i", name: "Corsair iCUE H100i", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 240, priceBRL: 699 },
-  { id: "nzxt-kraken-280", name: "NZXT Kraken 280", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 280, priceBRL: 899 },
-  { id: "deepcool-castle-360", name: "DeepCool Castle 360", type: "AIO", sockets: ["AM4", "AM5", "LGA1700"], radiatorMm: 360, priceBRL: 799 },
+  { id: "cooler-master-hyper-212", name: "Cooler Master Hyper 212", type: "Air", sockets: ["AM4", "AM5", "LGA1700", "LGA1851"], priceBRL: 199 },
+  { id: "deepcool-ak400", name: "DeepCool AK400", type: "Air", sockets: ["AM4", "AM5", "LGA1700", "LGA1851"], priceBRL: 249 },
+  { id: "corsair-h100i", name: "Corsair iCUE H100i", type: "AIO", sockets: ["AM4", "AM5", "LGA1700", "LGA1851"], radiatorMm: 240, priceBRL: 699 },
+  { id: "nzxt-kraken-280", name: "NZXT Kraken 280", type: "AIO", sockets: ["AM4", "AM5", "LGA1700", "LGA1851"], radiatorMm: 280, priceBRL: 899 },
+  { id: "deepcool-castle-360", name: "DeepCool Castle 360", type: "AIO", sockets: ["AM4", "AM5", "LGA1700", "LGA1851"], radiatorMm: 360, priceBRL: 799 },
 ];
 
 export const psus: Psu[] = [
