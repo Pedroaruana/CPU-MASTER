@@ -176,7 +176,7 @@ export default function BuildSelector({
             <button
               key={preset.id}
               onClick={() => applyPreset(preset.id)}
-              className="border border-black/20 px-3 py-1.5 text-xs uppercase tracking-wide text-black transition-colors hover:border-black"
+              className="border border-black/20 px-3 py-1.5 text-xs uppercase tracking-wide text-black transition-all duration-150 hover:-translate-y-0.5 hover:border-black hover:shadow-sm"
             >
               {preset.label}
             </button>
@@ -230,7 +230,7 @@ export default function BuildSelector({
       </div>
 
       {bottleneck && (
-        <div className="mt-6 border border-black/20 bg-neutral-50 px-4 py-3 text-sm">
+        <div className="animate-fade-in-up mt-6 border border-black/20 bg-neutral-50 px-4 py-3 text-sm">
           <p className="font-medium text-black">⚠ Possível gargalo</p>
           <p className="mt-0.5 text-xs text-neutral-500">
             {bottleneck.message}
@@ -240,10 +240,11 @@ export default function BuildSelector({
 
       {checks.length > 0 && (
         <div className="mt-6 space-y-px border border-black/10">
-          {checks.map((check) => (
+          {checks.map((check, index) => (
             <div
               key={check.label}
-              className="flex items-start gap-4 border-b border-black/10 bg-white px-5 py-4 text-sm last:border-b-0"
+              className="animate-fade-in-up flex items-start gap-4 border-b border-black/10 bg-white px-5 py-4 text-sm last:border-b-0"
+              style={{ animationDelay: `${index * 60}ms` }}
             >
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center text-xs font-bold text-black">
                 {check.ok ? "✓" : "✕"}
@@ -266,7 +267,7 @@ export default function BuildSelector({
       {allSelected && (
         <button
           onClick={handleShare}
-          className="mt-3 w-full border border-black/20 px-4 py-2.5 text-xs uppercase tracking-widest text-black transition-colors hover:border-black"
+          className="mt-3 w-full border border-black/20 px-4 py-2.5 text-xs uppercase tracking-widest text-black transition-all duration-150 hover:-translate-y-0.5 hover:border-black hover:shadow-sm"
         >
           {copied ? "Link copiado!" : "Compartilhar essa configuração"}
         </button>

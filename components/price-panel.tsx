@@ -17,17 +17,18 @@ export default function PricePanel({ items }: { items: PricedItem[] }) {
     <div className="mt-4">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full border border-black bg-black px-4 py-3 text-xs font-medium uppercase tracking-widest text-white transition-opacity hover:opacity-80"
+        className="w-full border border-black bg-black px-4 py-3 text-xs font-medium uppercase tracking-widest text-white transition-all duration-150 hover:-translate-y-0.5 hover:opacity-80"
       >
         {open ? "Ocultar preços" : "Ver menores preços"}
       </button>
 
       {open && (
-        <div className="mt-4 border border-black/10">
-          {items.map((item) => (
+        <div className="animate-fade-in-up mt-4 border border-black/10">
+          {items.map((item, index) => (
             <div
               key={item.label}
-              className="flex items-center justify-between gap-3 border-b border-black/10 px-4 py-3 text-sm last:border-b-0"
+              className="animate-fade-in-up flex items-center justify-between gap-3 border-b border-black/10 px-4 py-3 text-sm last:border-b-0"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               <div>
                 <p className="text-black">{item.name}</p>
