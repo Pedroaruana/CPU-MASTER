@@ -32,89 +32,94 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <header className="flex shrink-0 items-center justify-between px-8 py-6">
-        <Logo />
-        <span className="hidden text-xs uppercase tracking-[0.3em] text-neutral-400 sm:block">
-          v1.0
-        </span>
-      </header>
+      <div className="mx-auto flex w-full max-w-[1160px] flex-1 flex-col">
+        <header className="flex shrink-0 items-center justify-between px-8 py-6">
+          <Logo />
+          <span className="hidden text-xs uppercase tracking-[0.3em] text-neutral-400 sm:block">
+            v1.0
+          </span>
+        </header>
 
-      <section className="relative overflow-hidden border-b border-black/10 px-8 pb-14 pt-6 md:pb-20 md:pt-10">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(to right, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 140px)",
-          }}
-        />
-
-        <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
-          Simulador de compatibilidade
-        </p>
-        <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
-          Monte seu PC sem medo de incompatibilidade
-        </h2>
-        <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
-          Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e fonte, veja
-          o gabinete em 3D e confira se tudo funciona junto antes de gastar
-          um centavo.
-        </p>
-
-        <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
-          {steps.map((step) => (
-            <div key={step.number}>
-              <span className="text-4xl font-bold text-black/10">
-                {step.number}
-              </span>
-              <p className="mt-1 text-sm font-medium text-black">
-                {step.title}
-              </p>
-              <p className="mt-1 text-xs text-neutral-500">{step.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
-        <main className="flex min-w-0 flex-1 flex-col items-center gap-6 p-6 pt-10 md:pt-16">
-          <div className="flex items-center gap-2 self-start pl-1 text-xs uppercase tracking-[0.3em] text-neutral-400">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/40" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black" />
-            </span>
-            Visualização 3D em tempo real
-          </div>
-
-          <div className="relative w-full max-w-2xl border border-black/10 p-2">
-            <CornerFrame />
-            <PcCaseViewer
-              gpuBrand={gpuBrand}
-              ramSelected={ramSelected}
-              ssdSelected={ssdSelected}
-            />
-          </div>
-
-          <p className="max-w-lg text-center text-sm text-neutral-500">
-            Simule a montagem do seu computador peça por peça: veja se o
-            processador combina com a placa-mãe, se a memória é compatível,
-            se a placa de vídeo cabe no gabinete e se a fonte aguenta o
-            consumo — tudo antes de gastar um centavo real.
-          </p>
-        </main>
-
-        <aside className="w-full shrink-0 border-black/10 p-8 md:w-[380px] md:border-l">
-          <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-400">
-            Monte seu PC
-          </p>
-          <BuildSelector
-            onGpuBrandChange={setGpuBrand}
-            onRamSelectedChange={setRamSelected}
-            onSsdSelectedChange={setSsdSelected}
+        <section className="relative overflow-hidden border-b border-black/10 px-8 pb-14 pt-6 md:pb-20 md:pt-10">
+          <div
+            className="pointer-events-none absolute inset-0 -z-10"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to right, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 140px)",
+            }}
           />
-        </aside>
-      </div>
 
-      <SiteFooter />
+          <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
+            Simulador de compatibilidade
+          </p>
+          <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
+            Monte seu PC sem medo de incompatibilidade
+          </h2>
+          <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
+            Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e fonte, veja
+            o gabinete em 3D e confira se tudo funciona junto antes de gastar
+            um centavo.
+          </p>
+
+          <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
+            {steps.map((step) => (
+              <div key={step.number}>
+                <span className="text-4xl font-bold text-black/10">
+                  {step.number}
+                </span>
+                <p className="mt-1 text-sm font-medium text-black">
+                  {step.title}
+                </p>
+                <p className="mt-1 text-xs text-neutral-500">{step.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="flex min-h-0 flex-1 flex-col md:flex-row md:items-start">
+          <main className="flex min-w-0 flex-1 flex-col items-center gap-6 p-6 pt-10 md:sticky md:top-6 md:self-start md:pt-16">
+            <div className="flex items-center gap-2 self-start pl-1 text-xs uppercase tracking-[0.3em] text-neutral-400">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/40" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-black" />
+              </span>
+              Visualização 3D em tempo real
+            </div>
+
+            <div className="relative w-full max-w-2xl">
+              <div className="absolute inset-x-8 top-10 -z-10 h-3/4 bg-gradient-to-b from-black/[0.07] to-transparent blur-2xl" />
+              <div className="relative border border-black/10 p-2 shadow-[0_50px_100px_-40px_rgba(0,0,0,0.35)]">
+                <CornerFrame />
+                <PcCaseViewer
+                  gpuBrand={gpuBrand}
+                  ramSelected={ramSelected}
+                  ssdSelected={ssdSelected}
+                />
+              </div>
+            </div>
+
+            <p className="max-w-lg text-center text-sm text-neutral-500">
+              Simule a montagem do seu computador peça por peça: veja se o
+              processador combina com a placa-mãe, se a memória é compatível,
+              se a placa de vídeo cabe no gabinete e se a fonte aguenta o
+              consumo — tudo antes de gastar um centavo real.
+            </p>
+          </main>
+
+          <aside className="w-full shrink-0 border-black/10 p-8 md:w-[380px] md:border-l">
+            <p className="mb-6 text-xs uppercase tracking-[0.3em] text-neutral-400">
+              Monte seu PC
+            </p>
+            <BuildSelector
+              onGpuBrandChange={setGpuBrand}
+              onRamSelectedChange={setRamSelected}
+              onSsdSelectedChange={setSsdSelected}
+            />
+          </aside>
+        </div>
+
+        <SiteFooter />
+      </div>
     </div>
   );
 }
