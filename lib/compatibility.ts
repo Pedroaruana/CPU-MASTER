@@ -1,10 +1,12 @@
 import {
+  BASE_SYSTEM_W,
   CASE_MAX_GPU_LENGTH_MM,
   CASE_MAX_RADIATOR_MM,
   Cooler,
   Cpu,
   Gpu,
   Motherboard,
+  PSU_HEADROOM,
   Psu,
   Ram,
   Ssd,
@@ -93,18 +95,28 @@ export function checkCompatibility(
     });
   }
 
-  if (gpu && psu) {
-    const ok = psu.wattage >= gpu.recommendedPsuW;
+  if (cpu && gpu && psu) {
+    const totalDrawW = cpu.tdpW + gpu.tdpW + BASE_SYSTEM_W;
+    const recommendedW = Math.ceil(totalDrawW * PSU_HEADROOM);
+    const ok = psu.wattage >= recommendedW;
     checks.push({
-      label: "Fonte x Placa de vídeo",
+      label: "Fonte x Consumo total",
       ok,
       reason: ok
-        ? `${psu.name} (${psu.wattage}W) atende os ${gpu.recommendedPsuW}W recomendados para a ${gpu.name}`
-        : `${psu.name} (${psu.wattage}W) é insuficiente para a ${gpu.name} (recomendado: ${gpu.recommendedPsuW}W)`,
+        ? `${psu.name} (${psu.wattage}W) cobre o consumo estimado de ${totalDrawW}W (processador + GPU + sistema), com margem de segurança`
+        : `${psu.name} (${psu.wattage}W) pode não ser suficiente para o consumo estimado de ${totalDrawW}W (processador + GPU + sistema). Recomendado: pelo menos ${recommendedW}W`,
     });
   }
 
   return checks;
+}
+
+export function estimateTotalPowerW(
+  cpu: Cpu | null,
+  gpu: Gpu | null
+): number | null {
+  if (!cpu || !gpu) return null;
+  return cpu.tdpW + gpu.tdpW + BASE_SYSTEM_W;
 }
 
 export type BottleneckWarning = {
