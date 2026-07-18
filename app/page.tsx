@@ -6,6 +6,7 @@ import BuildSelector from "@/components/build-selector";
 import Logo from "@/components/logo";
 import SiteFooter from "@/components/site-footer";
 import CornerFrame from "@/components/corner-frame";
+import GpuAnimation from "@/components/gpu-animation";
 
 const steps = [
   {
@@ -54,17 +55,25 @@ export default function Home() {
             }}
           />
 
-          <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
-            Simulador de compatibilidade
-          </p>
-          <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
-            Monte seu PC sem medo de incompatibilidade
-          </h2>
-          <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
-            Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e fonte, veja
-            o gabinete em 3D e confira se tudo funciona junto antes de gastar
-            um centavo.
-          </p>
+          <div className="flex items-start justify-between gap-8">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
+                Simulador de compatibilidade
+              </p>
+              <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
+                Monte seu PC sem medo de incompatibilidade
+              </h2>
+              <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
+                Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e fonte,
+                veja o gabinete em 3D e confira se tudo funciona junto antes
+                de gastar um centavo.
+              </p>
+            </div>
+
+            <div className="hidden shrink-0 md:block">
+              <GpuAnimation />
+            </div>
+          </div>
 
           <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step) => (
