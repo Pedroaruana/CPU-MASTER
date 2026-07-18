@@ -23,6 +23,11 @@ const steps = [
     title: "Confira a compatibilidade",
     text: "Descubra na hora se tudo funciona junto, antes de comprar.",
   },
+  {
+    number: "04",
+    title: "Veja os preços",
+    text: "Compare o valor de cada peça e compre com confiança direto na loja.",
+  },
 ];
 
 export default function Home() {
@@ -61,7 +66,7 @@ export default function Home() {
             um centavo.
           </p>
 
-          <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step) => (
               <div key={step.number}>
                 <span className="text-4xl font-bold text-black/10">
