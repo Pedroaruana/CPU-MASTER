@@ -81,8 +81,8 @@ export default function GpuAnimation() {
       </circle>
 
       {/* fans */}
-      <Fan cx="105" cy="76" r="42" dur="2.4s" />
-      <Fan cx="255" cy="76" r="42" dur="2.8s" />
+      <Fan cx={105} cy={76} r={42} dur="2.4s" />
+      <Fan cx={255} cy={76} r={42} dur="2.8s" />
 
       {/* label */}
       <text x="180" y="80" textAnchor="middle" fontSize="10" fontWeight="700" fill="black" fillOpacity="0.35" letterSpacing="2">
