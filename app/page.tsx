@@ -7,6 +7,7 @@ import Logo from "@/components/logo";
 import SiteFooter from "@/components/site-footer";
 import CornerFrame from "@/components/corner-frame";
 import GpuAnimation from "@/components/gpu-animation";
+import BuildScrollSection from "@/components/build-scroll-section";
 
 const steps = [
   {
@@ -91,6 +92,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <BuildScrollSection />
 
         <div className="mx-auto flex w-full max-w-[1400px] min-h-0 flex-1 flex-col md:flex-row md:items-start">
           <main className="flex min-w-0 flex-1 flex-col items-center gap-6 p-6 pt-10 md:sticky md:top-6 md:self-start md:pt-16">
