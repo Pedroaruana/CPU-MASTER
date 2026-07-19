@@ -8,6 +8,7 @@ import SiteFooter from "@/components/site-footer";
 import CornerFrame from "@/components/corner-frame";
 import GpuAnimation from "@/components/gpu-animation";
 import BuildScrollSection from "@/components/build-scroll-section";
+import FeaturedBuilds from "@/components/featured-builds";
 
 const steps = [
   {
@@ -36,6 +37,18 @@ export default function Home() {
   const [gpuBrand, setGpuBrand] = useState<GpuBrand>("none");
   const [ramSelected, setRamSelected] = useState(false);
   const [ssdSelected, setSsdSelected] = useState(false);
+  const [presetPick, setPresetPick] = useState<{ id: string; n: number } | null>(
+    null
+  );
+
+  function handlePresetPick(id: string) {
+    setPresetPick({ id, n: Date.now() });
+    setTimeout(() => {
+      document
+        .getElementById("simulador")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 200);
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -95,7 +108,12 @@ export default function Home() {
 
         <BuildScrollSection />
 
-        <div className="mx-auto flex w-full max-w-[1400px] min-h-0 flex-1 flex-col md:flex-row md:items-start">
+        <FeaturedBuilds onPick={handlePresetPick} />
+
+        <div
+          id="simulador"
+          className="mx-auto flex w-full max-w-[1400px] min-h-0 flex-1 flex-col md:flex-row md:items-start"
+        >
           <main className="flex min-w-0 flex-1 flex-col items-center gap-6 p-6 pt-10 md:sticky md:top-6 md:self-start md:pt-16">
             <div className="flex items-center gap-2 self-start pl-1 text-xs uppercase tracking-[0.3em] text-neutral-400">
               <span className="relative flex h-1.5 w-1.5">
@@ -133,6 +151,7 @@ export default function Home() {
               onGpuBrandChange={setGpuBrand}
               onRamSelectedChange={setRamSelected}
               onSsdSelectedChange={setSsdSelected}
+              presetPick={presetPick}
             />
           </aside>
         </div>

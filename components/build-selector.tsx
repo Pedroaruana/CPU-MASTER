@@ -19,6 +19,7 @@ type Props = {
   onGpuBrandChange: (brand: GpuBrand) => void;
   onRamSelectedChange: (selected: boolean) => void;
   onSsdSelectedChange: (selected: boolean) => void;
+  presetPick?: { id: string; n: number } | null;
 };
 
 const PARAM_KEYS = {
@@ -35,6 +36,7 @@ export default function BuildSelector({
   onGpuBrandChange,
   onRamSelectedChange,
   onSsdSelectedChange,
+  presetPick,
 }: Props) {
   const [motherboardId, setMotherboardId] = useState("");
   const [cpuId, setCpuId] = useState("");
@@ -68,6 +70,11 @@ export default function BuildSelector({
     if (psuParam) setPsuId(psuParam);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (presetPick) applyPreset(presetPick.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presetPick]);
 
   useEffect(() => {
     const params = new URLSearchParams();
