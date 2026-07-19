@@ -1,7 +1,7 @@
 export default function SiteFooter() {
   return (
     <footer className="shrink-0 border-t border-black/10 px-8 py-5">
-      <div className="flex flex-col items-center justify-between gap-2 text-xs text-neutral-400 md:flex-row">
+      <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-2 text-xs text-neutral-400 md:flex-row">
         <p>© 2026 CPU Master. Todos os direitos reservados.</p>
         <p>
           Modelo 3D &quot;Custom Gaming PC&quot; por{" "}

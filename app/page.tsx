@@ -38,8 +38,8 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <div className="mx-auto flex w-full max-w-[1160px] flex-1 flex-col">
-        <header className="flex shrink-0 items-center justify-between px-8 py-6">
+      <div className="flex w-full flex-1 flex-col">
+        <header className="mx-auto flex w-full max-w-[1400px] shrink-0 items-center justify-between px-8 py-6">
           <Logo />
           <span className="hidden text-xs uppercase tracking-[0.3em] text-neutral-400 sm:block">
             v1.0
@@ -55,42 +55,44 @@ export default function Home() {
             }}
           />
 
-          <div className="flex items-start justify-between gap-8">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
-                Simulador de compatibilidade
-              </p>
-              <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
-                Monte seu PC sem medo de incompatibilidade
-              </h2>
-              <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
-                Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e fonte,
-                veja o gabinete em 3D e confira se tudo funciona junto antes
-                de gastar um centavo.
-              </p>
-            </div>
-
-            <div className="hidden shrink-0 md:block">
-              <GpuAnimation />
-            </div>
-          </div>
-
-          <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step) => (
-              <div key={step.number}>
-                <span className="text-4xl font-bold text-black/10">
-                  {step.number}
-                </span>
-                <p className="mt-1 text-sm font-medium text-black">
-                  {step.title}
+          <div className="mx-auto max-w-[1400px]">
+            <div className="flex items-start justify-between gap-8">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
+                  Simulador de compatibilidade
                 </p>
-                <p className="mt-1 text-xs text-neutral-500">{step.text}</p>
+                <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-black md:text-6xl">
+                  Monte seu PC sem medo de incompatibilidade
+                </h2>
+                <p className="mt-4 max-w-xl text-sm text-neutral-500 md:text-base">
+                  Escolha placa-mãe, processador, cooler, GPU, RAM, SSD e
+                  fonte, veja o gabinete em 3D e confira se tudo funciona
+                  junto antes de gastar um centavo.
+                </p>
               </div>
-            ))}
+
+              <div className="hidden shrink-0 md:block">
+                <GpuAnimation />
+              </div>
+            </div>
+
+            <div className="mt-10 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((step) => (
+                <div key={step.number}>
+                  <span className="text-4xl font-bold text-black/10">
+                    {step.number}
+                  </span>
+                  <p className="mt-1 text-sm font-medium text-black">
+                    {step.title}
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-500">{step.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <div className="flex min-h-0 flex-1 flex-col md:flex-row md:items-start">
+        <div className="mx-auto flex w-full max-w-[1400px] min-h-0 flex-1 flex-col md:flex-row md:items-start">
           <main className="flex min-w-0 flex-1 flex-col items-center gap-6 p-6 pt-10 md:sticky md:top-6 md:self-start md:pt-16">
             <div className="flex items-center gap-2 self-start pl-1 text-xs uppercase tracking-[0.3em] text-neutral-400">
               <span className="relative flex h-1.5 w-1.5">
