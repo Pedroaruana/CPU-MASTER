@@ -12,6 +12,33 @@ const labels = [
   "Sistema ligado",
 ];
 
+const sideSteps = [
+  "Gabinete",
+  "Placa-mãe",
+  "Processador e cooler",
+  "Memória RAM",
+  "Placa de vídeo",
+  "Painel de vidro",
+  "Sistema ligado",
+];
+
+const checklist = [
+  { label: "Placa-mãe parafusada", stage: 2 },
+  { label: "Cooler instalado", stage: 3 },
+  { label: "Memórias encaixadas", stage: 4 },
+  { label: "GPU na vertical", stage: 5 },
+  { label: "Painel fechado", stage: 6 },
+];
+
+const bootLog = [
+  { text: "gabinete detectado", stage: 1 },
+  { text: "placa-mae: socket ok", stage: 2 },
+  { text: "cooler: fan ativo", stage: 3 },
+  { text: "memoria: 4 modulos", stage: 4 },
+  { text: "gpu: conectada", stage: 5 },
+  { text: "painel: fechado", stage: 6 },
+];
+
 const bounds = [0.05, 0.22, 0.38, 0.52, 0.7, 0.84];
 
 function stageT(progress: number, start: number, end: number) {
@@ -142,6 +169,152 @@ export default function BuildScrollSection() {
           className="pointer-events-none absolute h-[460px] w-[460px] translate-x-32 rounded-full bg-purple-500 blur-[140px]"
           style={{ opacity: 0.07 + power * 0.2 }}
         />
+
+        {/* side hud */}
+        <div className="absolute left-10 top-1/2 z-10 hidden -translate-y-1/2 flex-col lg:flex xl:left-20">
+          <div className="flex flex-col gap-4">
+            {sideSteps.map((step, i) => {
+              const done = stageIndex > i;
+              const active = stageIndex === i;
+              return (
+                <div key={step} className="flex items-center gap-3">
+                  <span
+                    className="relative flex h-2.5 w-2.5 items-center justify-center rounded-full transition-all duration-300"
+                    style={{
+                      background: done || active ? "linear-gradient(135deg, #a855f7, #ec4899)" : "rgba(0,0,0,0.12)",
+                      boxShadow: active ? "0 0 10px rgba(217,70,239,0.7)" : "none",
+                      transform: active ? "scale(1.35)" : "scale(1)",
+                    }}
+                  >
+                    {active && (
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fuchsia-400/60" />
+                    )}
+                  </span>
+                  <span
+                    className="text-[11px] uppercase tracking-[0.25em] transition-colors duration-300"
+                    style={{
+                      color: active ? "#000" : done ? "rgba(0,0,0,0.55)" : "rgba(0,0,0,0.22)",
+                      fontWeight: active ? 600 : 400,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")} · {step}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 flex flex-col gap-2.5">
+            {checklist.map((item) => {
+              const on = stageIndex >= item.stage;
+              return (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 transition-opacity duration-500"
+                  style={{ opacity: on ? 1 : 0.18 }}
+                >
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                    <circle cx="8" cy="8" r="7" stroke={on ? "#a855f7" : "rgba(0,0,0,0.3)"} strokeWidth="1.4" />
+                    <path d="M5 8.2 L7.2 10.4 L11 6.2" stroke={on ? "#ec4899" : "rgba(0,0,0,0.3)"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span className="text-xs text-neutral-500">{item.label}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div
+            className="mt-8 flex w-fit items-center gap-2 rounded-full border px-4 py-2 transition-all duration-500"
+            style={{
+              opacity: power > 0.4 ? 1 : 0.15,
+              borderColor: power > 0.4 ? "rgba(34,197,94,0.6)" : "rgba(0,0,0,0.15)",
+              boxShadow: power > 0.4 ? "0 0 18px rgba(34,197,94,0.25)" : "none",
+            }}
+          >
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{
+                background: "#22c55e",
+                boxShadow: power > 0.4 ? "0 0 8px rgba(34,197,94,0.9)" : "none",
+              }}
+            />
+            <span className="text-xs font-medium text-black">Sistema ligado</span>
+          </div>
+        </div>
+
+        {/* right hud: boot log + telemetry */}
+        <div className="absolute right-10 top-1/2 z-10 hidden w-56 -translate-y-1/2 flex-col lg:flex xl:right-20">
+          <p className="mb-4 text-[10px] uppercase tracking-[0.3em] text-neutral-400">
+            Monitoramento
+          </p>
+
+          <div className="flex flex-col gap-2 font-mono text-[11px]">
+            {bootLog.map((line) => {
+              const on = stageIndex >= line.stage;
+              return (
+                <div
+                  key={line.text}
+                  className="flex items-center justify-between gap-3 transition-opacity duration-500"
+                  style={{ opacity: on ? 1 : 0.15 }}
+                >
+                  <span className="text-neutral-600">&gt; {line.text}</span>
+                  <span
+                    className="text-[10px] font-semibold"
+                    style={{ color: on ? "#22c55e" : "rgba(0,0,0,0.25)" }}
+                  >
+                    OK
+                  </span>
+                </div>
+              );
+            })}
+            <div
+              className="flex items-center gap-1 transition-opacity duration-500"
+              style={{ opacity: power > 0.3 ? 1 : 0.15 }}
+            >
+              <span className="text-neutral-600">&gt; boot: sistema ligado</span>
+              <span className="inline-block h-3 w-1.5 animate-pulse bg-fuchsia-500" />
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4">
+            {[
+              {
+                label: "Consumo",
+                value: `${Math.round(power * 420)}W`,
+                pct: power,
+              },
+              {
+                label: "Fans",
+                value: `${Math.round(900 + power * 1100)} RPM`,
+                pct: 0.4 + power * 0.6,
+              },
+              {
+                label: "Temp. CPU",
+                value: `${Math.round(power * 34)}°C`,
+                pct: power * 0.34,
+              },
+            ].map((m) => (
+              <div key={m.label}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
+                    {m.label}
+                  </span>
+                  <span className="font-mono text-xs text-black">{m.value}</span>
+                </div>
+                <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-black/10">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${Math.round(m.pct * 100)}%`,
+                      background: "linear-gradient(90deg, #a855f7, #ec4899)",
+                      boxShadow: power > 0.4 ? "0 0 8px rgba(217,70,239,0.5)" : "none",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <p className="relative z-10 mb-2 text-xs uppercase tracking-[0.4em] text-neutral-400">
           {labels[stageIndex]}
@@ -514,7 +687,7 @@ export default function BuildScrollSection() {
           </div>
         </div>
 
-        <div className="relative z-10 mt-2 flex items-center gap-2">
+        <div className="relative z-10 mt-2 flex items-center gap-2 lg:hidden">
           {labels.map((_, i) => (
             <span
               key={i}
