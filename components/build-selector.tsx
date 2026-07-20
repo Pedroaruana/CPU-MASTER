@@ -13,13 +13,14 @@ import {
   ssds,
 } from "@/lib/parts";
 import type { GpuBrand } from "@/components/pc-case-viewer";
-import PricePanel from "@/components/price-panel";
+import type { PricedItem } from "@/components/price-section";
 
 type Props = {
   onGpuBrandChange: (brand: GpuBrand) => void;
   onRamSelectedChange: (selected: boolean) => void;
   onSsdSelectedChange: (selected: boolean) => void;
   presetPick?: { id: string; n: number } | null;
+  onOpenPrices?: (items: PricedItem[]) => void;
 };
 
 const PARAM_KEYS = {
@@ -37,6 +38,7 @@ export default function BuildSelector({
   onRamSelectedChange,
   onSsdSelectedChange,
   presetPick,
+  onOpenPrices,
 }: Props) {
   const [motherboardId, setMotherboardId] = useState("");
   const [cpuId, setCpuId] = useState("");
@@ -269,7 +271,14 @@ export default function BuildSelector({
         </div>
       )}
 
-      {allCompatible && <PricePanel items={pricedItems} />}
+      {allCompatible && (
+        <button
+          onClick={() => onOpenPrices?.(pricedItems)}
+          className="mt-4 w-full border border-black bg-black px-4 py-3 text-xs font-medium uppercase tracking-widest text-white transition-all duration-150 hover:-translate-y-0.5 hover:opacity-80"
+        >
+          Ver menores preços
+        </button>
+      )}
 
       {allSelected && (
         <button

@@ -9,6 +9,7 @@ import CornerFrame from "@/components/corner-frame";
 import GpuAnimation from "@/components/gpu-animation";
 import BuildScrollSection from "@/components/build-scroll-section";
 import FeaturedBuilds from "@/components/featured-builds";
+import PriceSection, { PricedItem } from "@/components/price-section";
 
 const steps = [
   {
@@ -41,11 +42,22 @@ export default function Home() {
     null
   );
 
+  const [priceItems, setPriceItems] = useState<PricedItem[] | null>(null);
+
   function handlePresetPick(id: string) {
     setPresetPick({ id, n: Date.now() });
     setTimeout(() => {
       document
         .getElementById("simulador")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 200);
+  }
+
+  function handleOpenPrices(items: PricedItem[]) {
+    setPriceItems(items);
+    setTimeout(() => {
+      document
+        .getElementById("precos")
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 200);
   }
@@ -152,9 +164,12 @@ export default function Home() {
               onRamSelectedChange={setRamSelected}
               onSsdSelectedChange={setSsdSelected}
               presetPick={presetPick}
+              onOpenPrices={handleOpenPrices}
             />
           </aside>
         </div>
+
+        {priceItems && <PriceSection items={priceItems} />}
 
         <SiteFooter />
       </div>
