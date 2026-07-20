@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { checkBottleneck, checkCompatibility } from "@/lib/compatibility";
 import {
   buildPresets,
@@ -14,6 +14,7 @@ import {
 } from "@/lib/parts";
 import type { GpuBrand } from "@/components/pc-case-viewer";
 import type { PricedItem } from "@/components/price-section";
+import FpsEstimator from "@/components/fps-estimator";
 
 type Props = {
   onGpuBrandChange: (brand: GpuBrand) => void;
@@ -271,6 +272,8 @@ export default function BuildSelector({
         </div>
       )}
 
+      <FpsEstimator cpu={cpu} gpu={gpu} />
+
       {allCompatible && (
         <button
           onClick={() => onOpenPrices?.(pricedItems)}
@@ -303,21 +306,78 @@ function Select({
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
 }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const selected = options.find((opt) => opt.value === value) ?? null;
+
+  const filtered =
+    query.trim() === ""
+      ? options
+      : options.filter((opt) =>
+          opt.label.toLowerCase().includes(query.trim().toLowerCase())
+        );
+
+  useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+        setQuery("");
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
   return (
-    <label className="flex flex-col gap-2 text-xs uppercase tracking-widest text-neutral-500">
+    <div
+      ref={containerRef}
+      className="relative flex flex-col gap-2 text-xs uppercase tracking-widest text-neutral-500"
+    >
       {label}
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+      <input
+        type="text"
+        value={open ? query : (selected?.label ?? "")}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          if (!open) setOpen(true);
+        }}
+        onFocus={() => {
+          setOpen(true);
+          setQuery("");
+        }}
+        placeholder="Buscar..."
         className="border border-black/20 bg-white px-3 py-2.5 text-sm normal-case tracking-normal text-black outline-none transition-colors focus:border-black"
-      >
-        <option value="">Selecione</option>
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </label>
+      />
+      {open && (
+        <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-56 overflow-y-auto border border-black bg-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)]">
+          {filtered.length === 0 && (
+            <p className="px-3 py-2.5 text-xs normal-case tracking-normal text-neutral-400">
+              Nenhum resultado
+            </p>
+          )}
+          {filtered.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => {
+                onChange(opt.value);
+                setOpen(false);
+                setQuery("");
+              }}
+              className={`block w-full px-3 py-2.5 text-left text-sm normal-case tracking-normal text-black transition-colors hover:bg-neutral-100 ${
+                opt.value === value ? "bg-neutral-50 font-medium" : ""
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
