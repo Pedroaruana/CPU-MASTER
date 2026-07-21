@@ -51,6 +51,7 @@ export default function BuildSelector({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- hidrata o estado a partir da URL uma única vez, no mount */
     const params = new URLSearchParams(window.location.search);
     const mb = params.get(PARAM_KEYS.motherboardId);
     const cpuParam = params.get(PARAM_KEYS.cpuId);
@@ -71,6 +72,7 @@ export default function BuildSelector({
     if (ramParam) setRamId(ramParam);
     if (ssdParam) setSsdId(ssdParam);
     if (psuParam) setPsuId(psuParam);
+    /* eslint-enable react-hooks/set-state-in-effect */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
