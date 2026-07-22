@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
@@ -8,20 +8,35 @@ import * as THREE from "three";
 
 export type GpuBrand = "none" | "nvidia" | "amd";
 
-function GamingPcModel() {
+function GamingPcModel({ shadows }: { shadows: boolean }) {
   const { scene } = useGLTF("/models/gaming-pc.glb");
   const ref = useRef<THREE.Group>(null);
 
   useEffect(() => {
     scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
+        child.castShadow = shadows;
+        child.receiveShadow = shadows;
       }
     });
-  }, [scene]);
+  }, [scene, shadows]);
 
   return <primitive ref={ref} object={scene} />;
+}
+
+function useIsLowPower() {
+  const [isLowPower, setIsLowPower] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+    /* eslint-disable-next-line react-hooks/set-state-in-effect -- sincroniza com media query real do dispositivo, so existe no client */
+    setIsLowPower(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsLowPower(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return isLowPower;
 }
 
 function GenericGpu({ brand }: { brand: "nvidia" | "amd" }) {
@@ -105,30 +120,36 @@ export default function PcCaseViewer({
   ramSelected: boolean;
   ssdSelected: boolean;
 }) {
+  const isLowPower = useIsLowPower();
+
   return (
     <div className="w-full">
       <div className="h-[70vh] max-h-[640px] min-h-[420px] w-full bg-gradient-to-b from-zinc-900 to-black">
-        <Canvas shadows camera={{ position: [3, 2, 4], fov: 40 }}>
+        <Canvas
+          shadows={!isLowPower}
+          dpr={isLowPower ? 1 : [1, 2]}
+          camera={{ position: [3, 2, 4], fov: 40 }}
+        >
           <color attach="background" args={["#0a0a0a"]} />
           <ambientLight intensity={0.4} />
           <directionalLight
             position={[5, 8, 5]}
             intensity={1.2}
-            castShadow
-            shadow-mapSize-width={2048}
-            shadow-mapSize-height={2048}
+            castShadow={!isLowPower}
+            shadow-mapSize-width={isLowPower ? 512 : 2048}
+            shadow-mapSize-height={isLowPower ? 512 : 2048}
           />
           <pointLight position={[-3, 1, -2]} intensity={10} color="#a855f7" />
           <pointLight position={[3, 1, 2]} intensity={10} color="#ec4899" />
 
           <Suspense fallback={<Loader />}>
             <Bounds fit clip observe margin={1.2}>
-              <GamingPcModel />
+              <GamingPcModel shadows={!isLowPower} />
               {gpuBrand !== "none" && <GenericGpu brand={gpuBrand} />}
               {ramSelected && <GenericRam />}
               {ssdSelected && <GenericSsd />}
             </Bounds>
-            <Environment preset="city" />
+            {!isLowPower && <Environment preset="city" />}
           </Suspense>
 
           <OrbitControls
@@ -140,14 +161,16 @@ export default function PcCaseViewer({
             autoRotateSpeed={0.6}
           />
 
-          <EffectComposer>
-            <Bloom
-              intensity={0.6}
-              luminanceThreshold={0.2}
-              luminanceSmoothing={0.9}
-              mipmapBlur
-            />
-          </EffectComposer>
+          {!isLowPower && (
+            <EffectComposer>
+              <Bloom
+                intensity={0.6}
+                luminanceThreshold={0.2}
+                luminanceSmoothing={0.9}
+                mipmapBlur
+              />
+            </EffectComposer>
+          )}
         </Canvas>
       </div>
     </div>

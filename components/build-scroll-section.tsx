@@ -162,11 +162,11 @@ export default function BuildScrollSection() {
           }}
         />
         <div
-          className="pointer-events-none absolute h-[460px] w-[460px] -translate-x-24 rounded-full bg-fuchsia-400 blur-[130px]"
+          className="pointer-events-none absolute hidden h-[460px] w-[460px] -translate-x-24 rounded-full bg-fuchsia-400 blur-[130px] md:block"
           style={{ opacity: 0.08 + power * 0.22 }}
         />
         <div
-          className="pointer-events-none absolute h-[460px] w-[460px] translate-x-32 rounded-full bg-purple-500 blur-[140px]"
+          className="pointer-events-none absolute hidden h-[460px] w-[460px] translate-x-32 rounded-full bg-purple-500 blur-[140px] md:block"
           style={{ opacity: 0.07 + power * 0.2 }}
         />
 
