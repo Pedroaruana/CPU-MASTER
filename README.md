@@ -1,16 +1,17 @@
-🖥️ CPU Master — Monte seu PC sem medo de incompatibilidade
+# 🖥️ CPU Master — Monte seu PC sem medo de incompatibilidade
 
 Simulador de montagem de PC com checagem de compatibilidade em tempo real e visualização 3D do gabinete.
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat&logo=three.js&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
+![CI](https://img.shields.io/github/actions/workflow/status/Pedroaruana/CPU-MASTER/ci.yml?branch=main&label=CI&logo=github)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-20232A?style=flat&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-r185-000000?style=flat&logo=three.js&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-passing-6E9F18?style=flat&logo=vitest&logoColor=white)
+![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat&logo=vercel&logoColor=white)
 
-[Acesse o site em produção →](https://cpu-master-steel.vercel.app)
+[Acesse o site em produção →](https://cpu-master-steel.vercel.app) — não precisa de cadastro, é só escolher as peças.
 
 ## Screenshots
 
