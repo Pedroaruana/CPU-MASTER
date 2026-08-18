@@ -37,11 +37,13 @@ Sempre gostei de montar PC e queria juntar isso com programação num projeto de
 - Seção de montagem completa em 3D controlada por scroll (CSS puro, sem lib de 3D)
 - Builds prontas (custo-benefício, gamer, extremo) aplicadas com um clique
 - Preço estimado de cada peça com link direto pra Kabum e Amazon
+- Consulta de preço real da Kabum sob demanda, direto do servidor
 - Compartilhamento da configuração montada por link
 
 ## Stack
 
 - **Frontend:** Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS 4
+- **Backend:** Route Handler do próprio Next.js (`app/api/preco`), sem servidor separado
 - **3D:** React Three Fiber + drei + postprocessing (Bloom), com fallback de baixa qualidade pra celular
 - **Testes:** Vitest, cobrindo o motor de compatibilidade e o estimador de FPS
 - **CI/CD:** GitHub Actions rodando lint + testes + build a cada push
@@ -55,7 +57,8 @@ CpuMaster/
 │   ├── page.tsx          # página única, monta todas as seções
 │   ├── layout.tsx        # metadata, fonte, Analytics
 │   ├── robots.ts         # robots.txt
-│   └── sitemap.ts        # sitemap.xml
+│   ├── sitemap.ts        # sitemap.xml
+│   └── api/preco/route.ts   # busca preço real na Kabum (server-side)
 ├── components/
 │   ├── pc-case-viewer.tsx     # canvas 3D (react-three-fiber)
 │   ├── build-selector.tsx     # selects + compatibilidade + presets
@@ -72,7 +75,7 @@ CpuMaster/
 └── .github/workflows/ci.yml
 ```
 
-Projeto sem backend nem banco de dados — o catálogo de peças e as regras de compatibilidade vivem em `lib/parts.ts` e `lib/compatibility.ts`, tudo roda no cliente.
+Sem banco de dados — o catálogo de peças e as regras de compatibilidade vivem em `lib/parts.ts` e `lib/compatibility.ts`, tudo roda no cliente. A única peça de backend é a rota de preço (`app/api/preco`), que existe só pra fazer uma busca no servidor e evitar bloqueio de CORS.
 
 ## Rodando localmente
 
@@ -100,6 +103,8 @@ npm test        # testes automatizados (Vitest)
 **Testar no celular e ver que travava tudo** — no navegador do computador tava liso, aí abri no meu celular e o gabinete 3D engasgava inteiro. Sombra em resolução alta, bloom e reflexo de ambiente ligados o tempo todo, GPU de celular não aguenta essa conta. Resolvi detectando tela pequena/touch e desligando esses efeitos automaticamente — só fica tudo no talo mesmo no desktop.
 
 **Fazer o motor de compatibilidade fazer sentido de verdade** — dava pra deixar um check bonitinho de compatível/incompatível e pronto, mas queria que avisasse gargalo de CPU x GPU, desse uma margem de segurança na fonte (1.2x o consumo estimado) e barrasse radiador de AIO grande demais pro gabinete. Foi a parte que mais parei pra pensar antes de sair escrevendo código.
+
+**Descobrir onde a Kabum escondia o preço** — não tem API pública, então fui ver o HTML puro da busca. Achei que ia precisar de navegador headless, mas o preço tava ali mesmo, dentro de um `__NEXT_DATA__` (a Kabum também usa Next.js) — só precisei ler esse JSON. Bem mais simples do que esperava, mas também bem frágil: se eles mudarem a estrutura do site, quebra.
 
 ---
 
