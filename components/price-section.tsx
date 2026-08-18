@@ -36,12 +36,14 @@ function StoreLink({
 export default function PriceSection({ items }: { items: PricedItem[] }) {
   const [livePrices, setLivePrices] = useState<Record<string, LivePrice>>({});
   const [checking, setChecking] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   function priceFor(item: PricedItem) {
     return livePrices[item.name]?.price ?? item.priceBRL;
   }
 
   const total = items.reduce((sum, item) => sum + priceFor(item), 0);
+  const updatedCount = Object.values(livePrices).filter((p) => p.updated).length;
 
   async function handleCheckPrices() {
     setChecking(true);
@@ -63,6 +65,7 @@ export default function PriceSection({ items }: { items: PricedItem[] }) {
     }
     setLivePrices(next);
     setChecking(false);
+    setChecked(true);
   }
 
   return (
@@ -99,8 +102,19 @@ export default function PriceSection({ items }: { items: PricedItem[] }) {
               disabled={checking}
               className="mt-4 flex items-center gap-2 border border-black/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-black transition-all duration-150 hover:-translate-y-0.5 hover:border-black hover:shadow-sm disabled:opacity-50"
             >
-              {checking ? "Consultando Kabum..." : "Atualizar preços agora"}
+              {checking
+                ? "Consultando Kabum..."
+                : checked
+                  ? "Consultar de novo"
+                  : "Atualizar preços agora"}
             </button>
+            {checked && !checking && (
+              <p className="mt-2 text-[11px] text-neutral-400">
+                {updatedCount > 0
+                  ? `${updatedCount} de ${items.length} preços atualizados agora com a Kabum.`
+                  : "Não consegui atualizar agora — mostrando os preços de referência."}
+              </p>
+            )}
           </div>
           <div className="shrink-0 text-left md:text-right">
             <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
@@ -136,9 +150,16 @@ export default function PriceSection({ items }: { items: PricedItem[] }) {
               <p className="mt-2 min-h-10 text-sm font-medium text-black">
                 {item.name}
               </p>
-              <p className="mt-3 text-2xl font-bold tracking-tight text-black">
-                R$ {priceFor(item).toLocaleString("pt-BR")}
-              </p>
+              <div className="mt-3 flex items-center gap-2">
+                <p className="text-2xl font-bold tracking-tight text-black">
+                  R$ {priceFor(item).toLocaleString("pt-BR")}
+                </p>
+                {livePrices[item.name]?.updated && (
+                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-green-700">
+                    atualizado
+                  </span>
+                )}
+              </div>
               <div className="mt-5 flex gap-2 border-t border-black/10 pt-4">
                 <StoreLink store="kabum" name={item.name} />
                 <StoreLink store="amazon" name={item.name} />
