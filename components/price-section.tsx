@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { priceSearchUrl } from "@/lib/parts";
 
 export type PricedItem = {
@@ -7,6 +8,8 @@ export type PricedItem = {
   name: string;
   priceBRL: number;
 };
+
+type LivePrice = { price: number; updated: boolean };
 
 function StoreLink({
   store,
@@ -31,7 +34,36 @@ function StoreLink({
 }
 
 export default function PriceSection({ items }: { items: PricedItem[] }) {
-  const total = items.reduce((sum, item) => sum + item.priceBRL, 0);
+  const [livePrices, setLivePrices] = useState<Record<string, LivePrice>>({});
+  const [checking, setChecking] = useState(false);
+
+  function priceFor(item: PricedItem) {
+    return livePrices[item.name]?.price ?? item.priceBRL;
+  }
+
+  const total = items.reduce((sum, item) => sum + priceFor(item), 0);
+
+  async function handleCheckPrices() {
+    setChecking(true);
+    const results = await Promise.allSettled(
+      items.map(async (item) => {
+        const res = await fetch(
+          `/api/preco?nome=${encodeURIComponent(item.name)}`
+        );
+        const data: LivePrice = await res.json();
+        return { name: item.name, data };
+      })
+    );
+
+    const next: Record<string, LivePrice> = {};
+    for (const result of results) {
+      if (result.status === "fulfilled" && result.value.data.updated) {
+        next[result.value.name] = result.value.data;
+      }
+    }
+    setLivePrices(next);
+    setChecking(false);
+  }
 
   return (
     <section
@@ -61,6 +93,14 @@ export default function PriceSection({ items }: { items: PricedItem[] }) {
               direto pra busca na loja. Confira o valor atual antes de fechar
               a compra.
             </p>
+            <button
+              type="button"
+              onClick={handleCheckPrices}
+              disabled={checking}
+              className="mt-4 flex items-center gap-2 border border-black/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-black transition-all duration-150 hover:-translate-y-0.5 hover:border-black hover:shadow-sm disabled:opacity-50"
+            >
+              {checking ? "Consultando Kabum..." : "Atualizar preços agora"}
+            </button>
           </div>
           <div className="shrink-0 text-left md:text-right">
             <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">
@@ -97,7 +137,7 @@ export default function PriceSection({ items }: { items: PricedItem[] }) {
                 {item.name}
               </p>
               <p className="mt-3 text-2xl font-bold tracking-tight text-black">
-                R$ {item.priceBRL.toLocaleString("pt-BR")}
+                R$ {priceFor(item).toLocaleString("pt-BR")}
               </p>
               <div className="mt-5 flex gap-2 border-t border-black/10 pt-4">
                 <StoreLink store="kabum" name={item.name} />
