@@ -1,0 +1,17 @@
+# CPU Master
+
+> Simulador de montagem de PC com checagem de compatibilidade em tempo real e visualização 3D do gabinete.
+
+O CPU Master ajuda a montar um computador escolhendo placa-mãe, processador, cooler, GPU, RAM, SSD e fonte. O site verifica compatibilidade entre as peças (soquete, tipo de memória, tamanho da GPU no gabinete, radiador do cooler, slot M.2, consumo total de energia x capacidade da fonte), avisa gargalo entre processador e GPU, estima FPS em jogos populares, e mostra o gabinete em 3D com as peças aparecendo conforme a seleção. Não precisa de cadastro. Sem banco de dados; o catálogo de peças fica no código do projeto.
+
+## Páginas
+
+- [Início](https://cpu-master-steel.vercel.app/): simulador de compatibilidade, visualização 3D e preços
+- [Termos de uso](https://cpu-master-steel.vercel.app/termos)
+- [Política de privacidade](https://cpu-master-steel.vercel.app/privacidade)
+- [Acessibilidade](https://cpu-master-steel.vercel.app/acessibilidade)
+- [Cookies](https://cpu-master-steel.vercel.app/cookies)
+
+## Código-fonte
+
+- [Repositório no GitHub](https://github.com/Pedroaruana/CPU-MASTER)
